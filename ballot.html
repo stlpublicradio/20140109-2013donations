@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+        <link rel="stylesheet" href="css/normalize.min.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/styles.css">
+        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+	<script src="js/vendor/d3.v3.min.js"></script>
+    </head>
+    <body>
+	    <div class="figures"></div>
+	    <script>
+	    
+	    var figures = [
+	    {number: "$5,845,317.45", text: "Total amount of donations more than $5,000 given to local and state ballot initiatives in 2013."},
+	    {number: "$41,086.52", text: "Average size of the donations more than $5,000 to ballot initiatives in 2013."},
+	    {number: "$750,000.00", text: "The amount of money retired financer Rex Sinquefield gave to Teachgreat.org, a ballot item aimed at curtailing teacher tenure. This constituted the largest single donation to a ballot initiative in 2013."}
+	    	];
+		
+	
+	var callouts = d3.select(".figures")
+		.selectAll("div")
+		.data(figures)
+		.enter()
+		.append("div")
+		.attr("class", "callout")
+		.append("div")
+		.attr("class", "number")
+		.text(function(d) { return d.number; });
+		
+	d3.selectAll(".callout")
+		.append("div")
+		.attr("class", "text")
+		.text(function(d) { return d.text; });
+		
+	    </script>
+       
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
+
+        <script src="js/main.js"></script>
+    </body>
+</html>

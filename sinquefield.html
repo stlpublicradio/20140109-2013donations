@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+        <link rel="stylesheet" href="css/normalize.min.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/styles.css">
+        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+	<script src="js/vendor/d3.v3.min.js"></script>
+    </head>
+    <body>
+	    <div class="figures"></div>
+	    <script>
+	    
+	    var figures = [
+	    {number: "$3,865,000", text: "The total amount of money Sinquefield gave to Missouri-based candidates and causes in 2013."},
+	    {number: "Two", text: "The number of donations Sinquefield gave to Missouri-based candidates in 2013. He gave $20,000 to Lt. Gov. Peter Kinder and $100,000 to St. Louis County Executive Charlie Dooley."},
+	    {number: "$1,795,000", text: "The total amount Sinquefield gave to Grow Missouri, the group formed to support a multi-faceted tax cut vetoed by Gov. Jay Nixon."},
+	    {number: "$3,745,000", text: "The total amount Sinquefield gave to either third party committees or to ballot initiatives."}
+	    	];
+		
+	
+	var callouts = d3.select(".figures")
+		.selectAll("div")
+		.data(figures)
+		.enter()
+		.append("div")
+		.attr("class", "callout")
+		.append("div")
+		.attr("class", "number")
+		.text(function(d) { return d.number; });
+		
+	d3.selectAll(".callout")
+		.append("div")
+		.attr("class", "text")
+		.text(function(d) { return d.text; });
+		
+	    </script>
+       
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
+
+        <script src="js/main.js"></script>
+    </body>
+</html>

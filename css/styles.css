@@ -1,0 +1,164 @@
+@import url(http://fonts.googleapis.com/css?family=Titillium+Web:200,400,700,200italic);
+/* line 14, ../sass/styles.scss */
+body {
+  width: 550px;
+}
+
+/* line 18, ../sass/styles.scss */
+.datakey, .statekey {
+  float: left;
+}
+/* line 21, ../sass/styles.scss */
+.datakey div, .statekey div {
+  float: left;
+  padding: 5px;
+  margin: 5px;
+}
+/* line 26, ../sass/styles.scss */
+.datakey div span, .statekey div span {
+  color: #efefef;
+}
+
+/* line 34, ../sass/styles.scss */
+.year-2010,
+.year-2011,
+.year-2012 {
+  opacity: .5;
+}
+
+/* line 39, ../sass/styles.scss */
+.axis text {
+  font: 400 14px "Titillium Web", sans-serif;
+}
+/* line 43, ../sass/styles.scss */
+.axis path {
+  display: none;
+}
+/* line 47, ../sass/styles.scss */
+.axis line {
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+/* line 53, ../sass/styles.scss */
+.axis .minor line {
+  stroke: #333;
+  stroke-dasharray: 2,2;
+}
+
+/* line 61, ../sass/styles.scss */
+.callout {
+  padding: 8px 20px 20px 20px;
+  margin: 15px 0px;
+  background-color: rgba(232, 96, 77, 0.5);
+  -webkit-border-radius: 20px 20px;
+  -moz-border-radius: 20px / 20px;
+  border-radius: 20px / 20px;
+}
+/* line 66, ../sass/styles.scss */
+.callout .number {
+  font: 700 48px "Titillium Web", sans-serif;
+  color: #cc203b;
+}
+/* line 70, ../sass/styles.scss */
+.callout .text {
+  font: 200 24px "Titillium Web", sans-serif;
+}
+
+/* line 76, ../sass/styles.scss */
+.arc text {
+  font: 400 14px "Titillium Web", sans-serif;
+}
+
+/* line 81, ../sass/styles.scss */
+.brown {
+  fill: #6b6256;
+  background-color: #6b6256;
+}
+
+/* line 85, ../sass/styles.scss */
+.tan {
+  fill: #a5a585;
+  background-color: #a5a585;
+}
+
+/* line 89, ../sass/styles.scss */
+.light-green {
+  fill: #70a99a;
+  background-color: #70a99a;
+}
+
+/* line 93, ../sass/styles.scss */
+.green {
+  fill: #449970;
+  background-color: #449970;
+}
+
+/* line 97, ../sass/styles.scss */
+.dark-green {
+  fill: #31716e;
+  background-color: #31716e;
+}
+
+/* line 101, ../sass/styles.scss */
+.light-blue {
+  fill: #55b7d9;
+  background-color: #55b7d9;
+}
+
+/* line 105, ../sass/styles.scss */
+.blue {
+  fill: #358fb3;
+  background-color: #358fb3;
+}
+
+/* line 109, ../sass/styles.scss */
+.dark-blue {
+  fill: #006c8e;
+  background-color: #006c8e;
+}
+
+/* line 113, ../sass/styles.scss */
+.yellow {
+  fill: #f1bb4f;
+  background-color: #f1bb4f;
+}
+
+/* line 117, ../sass/styles.scss */
+.orange {
+  fill: #f6883e;
+  background-color: #f6883e;
+}
+
+/* line 121, ../sass/styles.scss */
+.orange-red {
+  fill: #e8604d;
+  background-color: #e8604d;
+}
+
+/* line 125, ../sass/styles.scss */
+.red {
+  fill: #cc203b;
+  background-color: #cc203b;
+}
+
+/* line 129, ../sass/styles.scss */
+.maroon {
+  fill: #8c1b52;
+  background-color: #8c1b52;
+}
+
+/* line 133, ../sass/styles.scss */
+.purple {
+  fill: #571751;
+  background-color: #571751;
+}
+
+/* line 138, ../sass/styles.scss */
+.title {
+  clear: both;
+  float: left;
+  width: 100%;
+  margin-top: 10px;
+  border-top: 3px solid #999;
+  font: 200 24px "Titillium Web", sans-serif;
+}

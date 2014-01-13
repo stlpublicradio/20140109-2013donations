@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+        <link rel="stylesheet" href="css/normalize.min.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/styles.css">
+        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+	<script src="js/vendor/d3.v3.min.js"></script>
+    </head>
+    <body>
+	    <svg class="chart"></svg>
+	    <div class="figures"></div>
+	    
+	    <script>
+	    
+	    var figures = [
+	    	{number: "Two", text: "Number of donations of at least $100,000 Koster received in 2013. They were from Kansas attorney Michael Ketchman and Alton, Illinois-based Simmons Browder Ginaris Agelides & Barnerd."},
+		{number: "$1,190,848.48", text: "Amount of money Koster had on hand as of October 2013."},
+		{number: "Three", text: "Number of \"Power Players\" who gave to Koster in 2013. David Stewart gave him $20,000; August Busch III gave him $10,000 and Kenneth McClain gave him $25,000. "}
+		];
+		
+	    var data = [
+	    {name: "Chris Koster", amt: 1295313.22},
+	    {name: "Jay Nixon", amt: 504145.29},
+	    {name: "Tom Schweich", amt: 436100.00},
+	    {name: "Peter Kinder", amt: 85000.00},
+	    {name: "Jason Kander", amt: 29237.40},
+	    {name: "Clint Zweifel", amt: 137501.00}
+		];
+		
+	    var formatNumber = d3.format(",.0f");
+		
+	    var margin = {top: 20, right: 30, bottom: 55, left: 40},
+	    	width = 550 - margin.left - margin.right,
+	    	height = 300 - margin.top - margin.bottom;
+		
+	    var x = d3.scale.ordinal()
+	    	.domain(data.map(function(d) { return d.name; }))
+		.rangeRoundBands([75, width - 10], .1);
+	    
+	    var y = d3.scale.linear()
+		.domain([0, d3.max(data, function(d) { return d.amt; })])
+		.range([height, 0]);
+		
+	    var xAxis = d3.svg.axis()
+	    	.scale(x)
+		.orient("bottom");
+		
+	    var yAxis = d3.svg.axis()
+	    	.scale(y)
+		.orient("right")
+		.tickSize(width)
+		.tickFormat(axisFormatter);
+			
+	    var chart = d3.select(".chart")
+	    	.attr("width", width + margin.left + margin.right)
+		.attr("height", height + margin.top + margin.bottom)
+		.append("g")
+		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+		
+	    var barWidth = width / data.length;
+	    
+	    var bar = chart.selectAll("g")
+	    	.data(data)
+		.enter().append("g")
+		.attr("transform", function(d, i) { return "translate(" + x(d.name) + ",0)"; });
+		
+	    bar.append("rect")
+	    	.attr("y", function(d) { return y(d.amt); })
+		.attr("height", function(d) {return height - y(d.amt); })
+		.attr("width", x.rangeBand())
+		.attr("class", function(d, i) { return "green name-" + i;});
+		
+
+		
+    	    chart.append("g")
+    	    .attr("class", "x axis")
+    	    .attr("transform", "translate(0," + height + ")")
+    	    .call(xAxis)
+	    .selectAll("text")
+	    .attr("y", 12)
+	    .attr("x", -5)
+	    .attr("dy", ".35em")
+	    .attr("transform", "rotate(-25)")
+	    .style("text-anchor", "end");
+	    
+	    var gy = chart.append("g")
+	    .attr("class", "y axis")
+	    .call(yAxis);
+	    
+	    gy.selectAll("g").filter(function(d) { return d; })
+	    .classed("minor", true);
+	    
+	    
+	    gy.selectAll("text")
+	    	.attr("x", 0)
+		.attr("dy", -4);
+		
+	function type(d) {
+		d.amt = +d.amt;
+		return d;
+	}
+	
+	function axisFormatter(d) {
+		return d >= 1e6
+		? "$" + d / 1000000 + " million"
+		: "$" + formatNumber(d);
+	}
+	
+	var callouts = d3.select(".figures")
+		.selectAll("div")
+		.data(figures)
+		.enter()
+		.append("div")
+		.attr("class", "callout")
+		.append("div")
+		.attr("class", "number")
+		.text(function(d) { return d.number; });
+		
+	d3.selectAll(".callout")
+		.append("div")
+		.attr("class", "text")
+		.text(function(d) { return d.text; });
+		
+	    </script>
+       
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
+
+        <script src="js/main.js"></script>
+    </body>
+</html>

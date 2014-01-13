@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+        <link rel="stylesheet" href="css/normalize.min.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/styles.css">
+        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+	<script src="js/vendor/d3.v3.min.js"></script>
+    </head>
+    <body>
+	    <div class="title"><p>Koster's big donations by occupation</p></div>
+	    <svg class="chart"></svg>
+	    <div class="datakey"></div>
+	    <div class="title"><p>Koster's big donations by state</p></div>
+	    <svg class="statechart"></svg>
+	    <div class="statekey"></div>
+   
+	    <script>
+
+	    var statedata = [
+	    {state: "Missouri", amt: "960313"},
+	    {state: "Washington D.C.", amt: "10000"},
+	    {state: "Ohio", amt: "10000"},
+	    {state: "Virginia", amt: "20000"},
+	    {state: "California", amt: "25000"},
+	    {state: "Maryland", amt: "60000"},
+	    {state: "Illinois", amt: "100000"},
+	    {state: "Kansas", amt: "110000"}
+	    ];
+	    
+	    var data = [
+	    {occupation: "Attorneys", amt: 585000},
+	    {occupation: "Corporations", amt: 260000 },
+	    {occupation: "Finance", amt: 25000 },
+	    {occupation: "Health Care", amt: 147500 },
+	    {occupation: "Indiviudals", amt: 300000 },
+	    {occupation: "Lobbying", amt: 17500 },
+	    {occupation: "PACs", amt: 30313 },
+	    {occupation: "Stem Cells", amt: 50000 },
+	    {occupation: "Unions", amt: 150000 }
+		];
+		
+	    var formatNumber = d3.format(",.0f");
+		
+	    var width = 550,
+	    	height = 500,
+		radius = Math.min(width, height) / 2,
+		labelr = radius - 40;
+		
+	    var color = d3.scale.ordinal()
+		.range(["orange","light-blue","red","dark-blue","yellow","orange-red","dark-green","brown","tan"]);	
+
+    	    var statecolor = d3.scale.ordinal()
+    		.range(["red","light-green","light-blue","green","orange","dark-green","blue","dark-blue"]);	
+		
+	    var arc = d3.svg.arc()
+	    	.outerRadius(radius - 50)
+		.innerRadius(0);
+		
+	    var pie = d3.layout.pie()
+	    	.sort(null)
+		.value(function(d) { return d.amt; });
+	    			
+	    var chart = d3.select(".chart")
+	    	.attr("width", width)
+		.attr("height", height)
+		.append("g")
+		.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+		
+	    var g = chart.selectAll(".arc")
+	    	.data(pie(data))
+		.enter().append("g")
+		.attr("class", "arc");
+		
+		g.append("path")
+		.attr("d", arc)
+		.attr("class", function(d) { return color(d.data.occupation); });
+		
+		g.append("text")
+		.attr("transform", function(d) {
+		    var c = arc.centroid(d),
+		        x = c[0],
+		        y = c[1],
+		        // pythagorean theorem for hypotenuse
+		        h = Math.sqrt(x*x + y*y);
+		    return "translate(" + (x/h * labelr) +  ',' +
+		       (y/h * labelr) +  ")"; 
+		})
+		.attr("dy", ".35em")
+		.text(function(d) { return "$" + formatNumber(d.data.amt); })
+		.attr("text-anchor", function(d) {
+		        // are we past the center?
+		        return (d.endAngle + d.startAngle)/2 > Math.PI ?
+		            "end" : "start";
+		    });
+
+		var datakey = d3.select(".datakey").selectAll("div")
+	    		.data(data);
+			
+	 	datakey.enter().append("div")
+			.attr("class", function(d) { return color(d.occupation); })
+			.append("span")
+			.html( function(d) { return d.occupation; });
+			
+	    	var statechart = d3.select(".statechart")
+	    	    	.attr("width", width)
+	    		.attr("height", height)
+	    		.append("g")
+	    		.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+		
+	    	var g = statechart.selectAll(".arc")
+	    	    	.data(pie(statedata))
+	    		.enter().append("g")
+	    		.attr("class", "arc");
+		
+	    		g.append("path")
+	    		.attr("d", arc)
+	    		.attr("class", function(d) { return statecolor(d.data.state); });
+		
+	    		g.append("text")
+	    		.attr("transform", function(d) {
+	    		    var c = arc.centroid(d),
+	    		        x = c[0],
+	    		        y = c[1],
+	    		        // pythagorean theorem for hypotenuse
+	    		        h = Math.sqrt(x*x + y*y);
+	    		    return "translate(" + (x/h * labelr) +  ',' +
+	    		       (y/h * labelr) +  ")"; 
+	    		})
+	    		.attr("dy", ".35em")
+	    		.text(function(d) { return "$" + formatNumber(d.data.amt); })
+	    		.attr("text-anchor", function(d) {
+	    		        // are we past the center?
+	    		        return (d.endAngle + d.startAngle)/2 > Math.PI ?
+	    		            "end" : "start";
+	    		    });
+
+	    		var statekey = d3.select(".statekey").selectAll("div")
+	    	    		.data(statedata);
+			
+	    	 	statekey.enter().append("div")
+	    			.attr("class", function(d) { return statecolor(d.state); })
+	    			.append("span")
+	    			.html( function(d) { return d.state; });
+	    </script>
+       
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
+
+        <script src="js/main.js"></script>
+    </body>
+</html>

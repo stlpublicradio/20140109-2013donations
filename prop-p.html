@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+        <link rel="stylesheet" href="css/normalize.min.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/styles.css">
+        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+	<script src="js/vendor/d3.v3.min.js"></script>
+    </head>
+    <body>
+	    <div class="figures"></div>
+	    <script>
+	    
+	    var figures = [
+	    {number: "$1,002,885", text: "Total amount of donations of more than $5,000 that went to the committee supporting Proposition P." },
+	    {number: "$825,000", text: "Total amount Civic Progress gave to help pass Proposition P. That PAC took donations from St. Louis-based companies — such as Express Scripts, Enterprise Holdings and Anheuser-Busch — and then gave to a pro-Prop. P committee." },
+	    {number: "$12.04", text: "Amount spent per vote for Proposition P. Roughly 74,065 people vote affirmatively for the initiative." }
+	    	];
+		
+	
+	var callouts = d3.select(".figures")
+		.selectAll("div")
+		.data(figures)
+		.enter()
+		.append("div")
+		.attr("class", "callout")
+		.append("div")
+		.attr("class", "number")
+		.text(function(d) { return d.number; });
+		
+	d3.selectAll(".callout")
+		.append("div")
+		.attr("class", "text")
+		.text(function(d) { return d.text; });
+		
+	    </script>
+       
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
+
+        <script src="js/main.js"></script>
+    </body>
+</html>

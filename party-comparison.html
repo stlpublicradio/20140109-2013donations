@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+        <link rel="stylesheet" href="css/normalize.min.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/styles.css">
+        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+	<script src="js/vendor/d3.v3.min.js"></script>
+    </head>
+    <body>
+	    <svg class="chart"></svg>
+	    <div class="datakey"></div>
+    
+	    <script>
+	    
+		
+		var margin = {top: 20, right: 20, bottom: 30, left: 10},
+		    width = 550 - margin.left - margin.right,
+		    height = 200 - margin.top - margin.bottom;
+
+		var formatNumber = d3.format(",.0f");
+				
+		var y = d3.scale.ordinal()
+		    .rangeRoundBands([0, height], .1);
+
+		var x = d3.scale.linear()
+		    .rangeRound([width, 0]);
+		    
+		var color = d3.scale.ordinal()
+		.range(["light-green","green","dark-green","light-blue","blue","dark-blue","yellow","orange","orange-red","red","maroon","purple","tan"]);
+
+		var xAxis = d3.svg.axis()
+		    .scale(x)
+		    .orient("bottom")
+		    .tickFormat(axisFormatter);
+
+		var yAxis = d3.svg.axis()
+		    .scale(y)
+		    .tickSize(0)
+		    .orient("left");
+		    
+
+		var chart = d3.select(".chart")
+			.attr("width", width + margin.left + margin.right)
+			.attr("height", height + margin.top + margin.bottom)
+			.append("g")
+			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+			
+		d3.csv("data/party-comparison.csv", function(error, data) {
+			color.domain(d3.keys(data[0]).filter(function(key) { return key !== "Party"; }));
+		
+			data.forEach(function(d) {
+				var x0 = 0;
+				d.contribs = color.domain().map(function(name) { return {name: name, x0: x0, x1: x0 += +d[name]}; });
+				d.total = d.contribs[d.contribs.length - 1].x1;
+			});
+			
+			y.domain(data.map(function(d) { return d.Party; }));
+			x.domain([d3.max(data, function(d) { return d.total; }), 0]);
+			
+			chart.append("g")
+				.attr("class", "x axis")
+				.attr("transform", "translate(20, " + height + ")")
+				.call(xAxis);
+				
+			chart.append("g")
+				.attr("class", "y axis")
+				.call(yAxis)
+				.selectAll("text")
+				.attr("x", 0)
+				.attr("y", 0 )
+				.style("text-anchor", "middle")
+				.attr("transform", "rotate(-90)");
+				
+			var party = chart.selectAll(".party")
+				.data(data)
+				.enter().append("g")
+				.attr("class", "g")
+				.attr("transform", function(d) { return "translate(20, " + y(d.Party) + ")"});
+				
+			party.selectAll("rect")
+				.data(function(d) { return d.contribs; })
+				.enter().append("rect")
+				.attr("height", y.rangeBand())
+				.attr("x", function(d) { return x(d.x0); })
+				.attr("width", function(d) { return x(d.x1) - x(d.x0); })
+				.attr("class", function(d) { return color(d.name); });
+				
+			var datakey = d3.select(".datakey")
+				.data(data);
+				
+			datakey.selectAll("div")
+				.data(function(d) { return d.contribs; })
+				.enter().append("div")
+				.attr("class", function(d) { return color(d.name); })
+				.append("span")
+				.html( function(d) { return d.name; });
+				
+		});
+		
+		function axisFormatter(d) {
+			return d >= 1e6
+			? "$" + d / 1000000 + " M"
+			: "$" + formatNumber(d);
+		}
+		      
+	    </script>
+       
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
+
+        <script src="js/main.js"></script>
+    </body>
+</html>

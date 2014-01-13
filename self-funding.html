@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+        <link rel="stylesheet" href="css/normalize.min.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/styles.css">
+        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+	<script src="js/vendor/d3.v3.min.js"></script>
+    </head>
+    <body>
+	    <div class="figures"></div>
+	    <script>
+	    
+	    var figures = [
+	    {number: "$500,000", text: "Total amount the Catherine L. Schaefer Trust gave to Sen. Kurt Schaefer's attorney general campaign."},
+	    {number: "$145,000", text: "Total amount that Rep. John Wright, D-Rocheport, gave to his campaign during 2013."},
+	    {number: "$100,000", text: "Total amount that Councilman Steve Stenger, D-Affton, gave to his campaign during 2013. Stenger is challenging St. Louis County Executive Charlie Dooley in this year's Democratic primary."}
+	    	];
+		
+	
+	var callouts = d3.select(".figures")
+		.selectAll("div")
+		.data(figures)
+		.enter()
+		.append("div")
+		.attr("class", "callout")
+		.append("div")
+		.attr("class", "number")
+		.text(function(d) { return d.number; });
+		
+	d3.selectAll(".callout")
+		.append("div")
+		.attr("class", "text")
+		.text(function(d) { return d.text; });
+		
+	    </script>
+       
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
+
+        <script src="js/main.js"></script>
+    </body>
+</html>

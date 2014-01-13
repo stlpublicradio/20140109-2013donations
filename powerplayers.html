@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+        <link rel="stylesheet" href="css/normalize.min.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/styles.css">
+        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+	<script src="js/vendor/d3.v3.min.js"></script>
+    </head>
+    <body>
+	    <div class="figures"></div>
+	    <script>
+	    
+	    var figures = [
+	    {number: "$4,901,249.03", text: "Total amount that \"Power Players\" gave to Missouri and federal candidates."},
+	    {number: "$204,000", text: "Total amount that went to state Auditor Tom Schweich from seven out of the 16 \"Power Players.\" The Republican received more money from \"Power Players\" than any other candidate."},
+	    {number: "$766,019.03", text: "Total amount given to Republican candidates or PACs by the \"Power Players.\""},
+	    {number: "$187,980", text: "Total amount given to Democratic candidates or PACs by the \"Power Players.\""},
+	    {number: "$3,947,250", text: "Total amount given to PACs or ballot initiatives not associated with a particular party. This includes conservative-leaning PACs such as Grow Missouri, Missouri Club for Growth and the Missouri Chamber of Commerce."},
+	    {number: "113", text: "Total number of donations that \"Power Players\" gave to Republican candidates or PACs."},
+	    {number: "20", text: "Total number donations that \"Power Players\" gave to Democratic candidates or PACs."}
+	    	];
+		
+	
+	var callouts = d3.select(".figures")
+		.selectAll("div")
+		.data(figures)
+		.enter()
+		.append("div")
+		.attr("class", "callout")
+		.append("div")
+		.attr("class", "number")
+		.text(function(d) { return d.number; });
+		
+	d3.selectAll(".callout")
+		.append("div")
+		.attr("class", "text")
+		.text(function(d) { return d.text; });
+		
+	    </script>
+       
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
+
+        <script src="js/main.js"></script>
+    </body>
+</html>
